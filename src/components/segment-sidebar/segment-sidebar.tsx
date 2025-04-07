@@ -8,7 +8,7 @@ import { Button } from '~/components/ui/button';
 const SegmentSidebar = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <aside
     {...props}
-    className={cn('flex flex-col h-full gap-5 pt-5 pb-6 px-5 bg-background shadow-soft-large', className)}
+    className={cn('flex flex-col h-full gap-5 pt-5 pb-6 px-5 bg-background shadow-soft-large z-10', className)}
   >
     {children}
   </aside>

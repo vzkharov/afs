@@ -90,8 +90,8 @@ const config: Config = {
     },
     container: {
       center: true,
-      padding: '0rem',
-      screens: { '2xl': '640px' },
+      padding: '40px',
+      screens: { '2xl': '720px' },
     },
   },
   plugins: [animatePlugin, internalPlugin],

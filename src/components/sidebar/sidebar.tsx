@@ -6,7 +6,7 @@ import { Button } from '~/components/ui/button';
 const Sidebar = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <aside
     {...props}
-    className={cn('flex flex-col h-full items-center justify-between px-1.5 py-5 bg-foreground', className)}
+    className={cn('flex flex-col h-full items-center justify-between px-1.5 py-5 bg-foreground z-10', className)}
   >
     {children}
   </aside>
