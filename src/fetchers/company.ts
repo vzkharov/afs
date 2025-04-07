@@ -28,8 +28,17 @@ const removeCompanyById = async (id: string): Promise<void> => {
   await companyApi.delete(id);
 };
 
-const addCompanyImage = async (id: string, image: File): Promise<Photo> =>
-  await companyApi.post(`${id}/image`, { body: image }).json<Photo>();
+const addCompanyImage = async (id: string, image: File): Promise<Photo> => {
+  const formData = new FormData();
+  formData.append('file', image);
+
+  return await companyApi
+    .post(`${id}/image`, {
+      body: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    .json<Photo>();
+};
 
 const removeCompanyImage = async (id: string, name: string): Promise<void> => {
   await companyApi.delete(`${id}/image/${name}`);
