@@ -23,7 +23,7 @@ const SelectTrigger = React.forwardRef<
     )}
     {...props}
   >
-    {children}
+    <span className='flex-1 line-clamp-1 text-left'>{children}</span>
     <SelectPrimitive.Icon asChild>
       <ChevronIcon className='h-5 w-5 -rotate-90 group-aria-expanded:rotate-90 transition-transform duration-200' />
     </SelectPrimitive.Icon>
@@ -61,22 +61,26 @@ const SelectContent = React.forwardRef<
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-const SelectItem = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={cn(
-      'relative flex w-full cursor-default select-none items-center py-3 px-4 text-sm outline-none focus:bg-foreground/5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-      'focus:font-medium aria-selected:bg-foreground/5 aria-selected:font-medium',
-      className
-    )}
-    {...props}
-  >
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-));
+type SelectItemProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+  startContent?: React.ReactNode;
+};
+
+const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item>, SelectItemProps>(
+  ({ className, children, startContent, ...props }, ref) => (
+    <SelectPrimitive.Item
+      ref={ref}
+      className={cn(
+        'relative flex items-center gap-3 w-full cursor-default select-none py-3 px-4 text-sm outline-none focus:bg-foreground/5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'focus:font-medium aria-selected:bg-foreground/5 aria-selected:font-medium',
+        className
+      )}
+      {...props}
+    >
+      {startContent}
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </SelectPrimitive.Item>
+  )
+);
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 export { Select, SelectValue, SelectTrigger, SelectContent, SelectItem };

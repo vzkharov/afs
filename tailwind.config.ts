@@ -82,6 +82,7 @@ const config: Config = {
         'soft-large': 'var(--soft-large)',
       },
       borderRadius: {
+        xs: 'calc(var(--radius) - 8px)',
         sm: 'calc(var(--radius) - 4px)',
         md: 'var(--radius)',
         lg: 'calc(var(--radius) + 4px)',
