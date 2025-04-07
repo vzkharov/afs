@@ -67,7 +67,7 @@ const useCompanyActions = (initialData: Company) => {
     await promise.then((uploadedImage) => {
       setOptimisticCompany({
         ...optimisticCompany,
-        photos: [...optimisticCompany.photos, uploadedImage],
+        photos: [uploadedImage, ...optimisticCompany.photos],
       });
     });
   };

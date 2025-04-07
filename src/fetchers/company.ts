@@ -32,12 +32,7 @@ const addCompanyImage = async (id: string, image: File): Promise<Photo> => {
   const formData = new FormData();
   formData.append('file', image);
 
-  return await companyApi
-    .post(`${id}/image`, {
-      body: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    .json<Photo>();
+  return await companyApi.post(`${id}/image`, { body: formData }).json<Photo>();
 };
 
 const removeCompanyImage = async (id: string, name: string): Promise<void> => {

@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'test-task-api.allfuneral.com',
-        pathname: '/*',
+        pathname: '/**',
       },
     ],
   },
