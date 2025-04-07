@@ -1,3 +1,5 @@
+'use client';
+
 import type { StyleProps } from '~/lib/types';
 
 import type { CompanyBusinessEntity } from '~/entities/company';

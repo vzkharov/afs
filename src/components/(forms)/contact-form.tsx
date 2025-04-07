@@ -17,8 +17,8 @@ const ContactForm = ({ value, onValueChange }: FormProps<Contact>) => (
         value={value}
         onChange={(_value) =>
           onValueChange?.({
-            firstname: _value.firstname,
             lastname: _value.lastname,
+            firstname: _value.firstname,
           })
         }
       />

@@ -1,3 +1,5 @@
+'use client';
+
 import { Input, type InputProps } from '~/components/ui/input';
 
 type DateInputProps = Omit<InputProps, 'type' | 'value' | 'onChange'> & {

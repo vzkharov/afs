@@ -1,3 +1,5 @@
+'use client';
+
 import type { FormProps } from '~/lib/types';
 
 import type { CompanyDetails } from '~/entities/company';
