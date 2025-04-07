@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Colors */
+    --background: 160 0 96%; /* hsl(180, 0%, 97%) */
+    --foreground: 0 0% 23%; /* hsl(0, 0%, 23%) */
+
+    --card: 0 0% 100%; /* hsl(0, 0%, 100%) */
+
+    --border: 0 0 0%; /* hsl(0, 0%, 0%) */
+
+    --brand-primary: 251 77% 58%; /* hsl(251, 77%, 58%) */
+    --brand-primary-hover: 252 100 65; /* hsl(252, 100%, 65%) */
+    --brand-primary-foreground: 251 100 75%; /* hsl(251, 100%, 75%) */
+
+    --destructive: 0 72% 49%; /* hsl(0, 84%, 60%) */
+    --destructive-foreground: 0 0% 98%; /* hsl(0, 0%, 98%) */
+
+    --ring: 194 98% 60%; /* hsl(194, 98%, 60%) */
+
+    --soft: 0px 3px 8px 0px rgba(0, 0, 0, 0.12); /* hsl(0, 0%, 12%) */
+    --soft-large: 0px 4px 24px 0px rgba(0, 0, 0, 0.14); /* hsl(0, 0%, 14%) */
+
+    --radius: 12px;
+
+    /* Text */
+    --text-xs: 11px;
+    --text-xs-line-height: 16px;
+    --text-xs-letter-spacing: 0.24px;
+
+    --text-sm: 13px;
+    --text-sm-line-height: 20px;
+    --text-sm-letter-spacing: 0.25px;
+
+    --text-md: 14px;
+    --text-md-line-height: 24px;
+    --text-md-letter-spacing: 0.3px;
+
+    --text-lg: 16px;
+    --text-lg-line-height: 28px;
+    --text-lg-letter-spacing: 0.3px;
+
+    --text-xl: 28px;
+    --text-xl-line-height: 40px;
+    --text-xl-letter-spacing: 0.25px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-poppins font-normal text-md;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+}
