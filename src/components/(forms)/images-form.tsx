@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useState, useRef } from 'react';
 
+import { cn } from '~/lib/utils';
+
 import { Button } from '~/components/ui/button';
 import { Spinner } from '~/components/ui/spinner';
 import { TrashIcon } from '~/components/ui/icons/trash';
@@ -69,9 +71,9 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
       <Carousel>
         <CarouselContent className={css.container}>
           {localImage ? <UploadingImage image={localImage} /> : null}
-          {value.map((image, index) => (
+          {value.map((image) => (
             <RemovableImage
-              key={index}
+              key={image.name}
               image={{ src: image.thumbpath, alt: image.name }}
               onRemove={() => onRemove(image.name)}
             />
@@ -83,7 +85,7 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
 };
 
 const UploadingImage = ({ image }: { image: LocalImageValue }) => (
-  <CarouselItem className={css.imageWrapper}>
+  <CarouselItem className={cn(css.imageWrapper, 'pointer-events-none')}>
     <Image
       width={288}
       height={216}
@@ -123,7 +125,7 @@ const css = {
   container: 'flex flex-row gap-3 mt-4',
   imageWrapper: 'relative group p-0.5 w-36 aspect-image max-w-[144px] rounded-sm overflow-hidden',
   image: [
-    'absolute inset-0 object-cover select-none pointer-events-none',
+    'w-full h-full object-cover select-none pointer-events-none rounded-sm',
     'group-hover:ring-2 group-hover:ring-brand-primary transition-all duration-200',
   ].join(' '),
   removeButton: 'absolute top-2 right-2 w-7 h-7 p-1.5 rounded-sm [&_svg]:size-4 backdrop-blur-lg',
