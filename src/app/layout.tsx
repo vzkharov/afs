@@ -33,9 +33,11 @@ const Root: Layout = ({ children }) => (
       <main className={css.main}>
         <BackButton className={css.backButton} />
         {children}
+        <Toaster
+          richColors
+          position='bottom-right'
+        />
       </main>
-
-      <Toaster position='bottom-right' />
     </body>
   </html>
 );
@@ -44,8 +46,5 @@ export const metadata: Metadata = {
   title: 'Oak Tree Cemetery - Process Manager',
   description: 'Funeral Services Management System',
 };
-
-// export const revalidate = 150000;
-// export const dynamic = 'force-static';
 
 export default Root;
