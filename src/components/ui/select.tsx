@@ -5,7 +5,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { cn } from '~/lib/utils';
 
-import { ChevronIcon } from './icons/chevron';
+import { ChevronLeftIcon } from './icons/chevron-left';
 
 const Select = SelectPrimitive.Root;
 
@@ -25,7 +25,7 @@ const SelectTrigger = React.forwardRef<
   >
     <span className='flex-1 line-clamp-1 text-left'>{children}</span>
     <SelectPrimitive.Icon asChild>
-      <ChevronIcon className='h-5 w-5 -rotate-90 group-aria-expanded:rotate-90 transition-transform duration-200' />
+      <ChevronLeftIcon className='h-5 w-5 -rotate-90 group-aria-expanded:rotate-90 transition-transform duration-200' />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));

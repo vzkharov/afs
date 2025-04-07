@@ -19,7 +19,7 @@ const PhoneInput = ({ className, onChange, onValidChange, ...props }: PhoneInput
   const [isValid, setIsValid] = useState(isValidPhone(initialValue));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newValue = e.target.value;
+    const newValue = e.target.value;
 
     if (newValue.length < value.length) {
       setValue(newValue);
@@ -69,7 +69,7 @@ const PhoneInput = ({ className, onChange, onValidChange, ...props }: PhoneInput
       aria-invalid={!isValid}
       onChange={handleChange}
       placeholder='+1 333 333 4444'
-      className={cn(isValid ? 'border-green-500/50' : value ? 'border-red-500/50' : '', className)}
+      className={cn(!isValid && value ? 'border-red-500/50' : '', className)}
       {...props}
     />
   );

@@ -1,6 +1,4 @@
-import { cn } from '~/lib/utils';
-
-import { ChevronIcon } from '~/components/ui/icons/chevron';
+import { ChevronLeftIcon } from '~/components/ui/icons/chevron-left';
 import { Button, type ButtonProps } from '~/components/ui/button';
 
 const BackButton = ({ className, variant = 'ghost', ...props }: ButtonProps) => (
@@ -8,9 +6,9 @@ const BackButton = ({ className, variant = 'ghost', ...props }: ButtonProps) => 
     {...props}
     size='icon'
     variant={variant}
-    className={cn('[&_svg]:size-5', className)}
+    className={className}
   >
-    <ChevronIcon />
+    <ChevronLeftIcon />
   </Button>
 );
 
