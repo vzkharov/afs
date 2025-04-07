@@ -7,13 +7,14 @@ import { isValidPhone, formatPhone } from '~/utils/phone';
 
 import { Input } from '~/components/ui/input';
 
-type PhoneInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
+type PhoneInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'defaultValue'> & {
+  defaultValue?: string;
   onChange?: (value: string) => void;
   onValidChange?: (isValid: boolean) => void;
 };
 
-const PhoneInput = ({ className, onChange, onValidChange, ...props }: PhoneInputProps) => {
-  const initialValue = props.defaultValue ? formatPhone(props.defaultValue as string) : '';
+const PhoneInput = ({ className, onChange, onValidChange, defaultValue, ...props }: PhoneInputProps) => {
+  const initialValue = defaultValue ? formatPhone(defaultValue) : '';
 
   const [value, setValue] = useState(initialValue);
   const [isValid, setIsValid] = useState(isValidPhone(initialValue));
