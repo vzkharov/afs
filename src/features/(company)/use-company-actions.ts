@@ -23,6 +23,7 @@ const useCompanyActions = (initialData: Company) => {
   };
 
   const handleUpdateCompany = async (_company: Partial<Company>) => {
+    const previousCompany = optimisticCompany;
     handleChangeCompany(_company);
 
     const promise = companyService.updateById(optimisticCompany.id, _company);
@@ -33,9 +34,13 @@ const useCompanyActions = (initialData: Company) => {
       error: 'Failed to update company',
     });
 
-    await promise.then((updatedCompany) => {
-      setOptimisticCompany(updatedCompany);
-    });
+    await promise
+      .then((updatedCompany) => {
+        setOptimisticCompany(updatedCompany);
+      })
+      .catch(() => {
+        setOptimisticCompany(previousCompany);
+      });
   };
 
   const handleRemoveCompany = async () => {
@@ -68,6 +73,8 @@ const useCompanyActions = (initialData: Company) => {
   };
 
   const handleRemoveCompanyImage = async (name: string) => {
+    const previousPhotos = optimisticCompany.photos;
+
     handleChangeCompany({
       photos: optimisticCompany.photos.filter((photo) => photo.name !== name),
     });
@@ -80,7 +87,11 @@ const useCompanyActions = (initialData: Company) => {
       error: 'Failed to remove image',
     });
 
-    await promise;
+    await promise.catch(() => {
+      handleChangeCompany({
+        photos: previousPhotos,
+      });
+    });
   };
 
   return {

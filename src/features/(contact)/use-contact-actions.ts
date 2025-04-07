@@ -19,6 +19,8 @@ const useContactActions = (initialData: Contact) => {
   };
 
   const handleUpdateContact = async (_contact: Partial<Contact>) => {
+    const previousContact = optimisticContact;
+
     handleChangeContact(_contact);
 
     const promise = contactService.updateById(optimisticContact.id, _contact);
@@ -29,9 +31,13 @@ const useContactActions = (initialData: Contact) => {
       error: 'Failed to update contact',
     });
 
-    await promise.then((updatedContact) => {
-      setOptimisticContact(updatedContact);
-    });
+    await promise
+      .then((updatedContact) => {
+        setOptimisticContact(updatedContact);
+      })
+      .catch(() => {
+        setOptimisticContact(previousContact);
+      });
   };
 
   return {
