@@ -36,7 +36,11 @@ const EditCompanyNameModal = ({
 
     const title = formData.get('title') as string;
 
-    title ? onConfirm?.(companyId, title) : onReject?.(companyId);
+    if (title) {
+      onConfirm?.(companyId, title);
+    } else {
+      onReject?.(companyId);
+    }
   };
 
   return (

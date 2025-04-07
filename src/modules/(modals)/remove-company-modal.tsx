@@ -3,7 +3,6 @@
 import type { ReactChildren } from '~/lib/types';
 
 import { Button } from '~/components/ui/button';
-import { TrashIcon } from '~/components/ui/icons/trash';
 import {
   Dialog,
   DialogTitle,

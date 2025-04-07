@@ -18,7 +18,7 @@ const withEditableCard = <T,>(
   FormComponent: React.ComponentType<FormProps<T>>,
   DisplayComponent: React.ComponentType<T>
 ) => {
-  return ({ title, value, onValueChange }: WithEditableCardProps<T>) => {
+  return function EditableComponent({ title, value, onValueChange }: WithEditableCardProps<T>) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [localValue, setLocalValue] = useState<T>(value);
 
