@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useRef } from 'react';
 
 import { Button } from '~/components/ui/button';
-
+import { Spinner } from '~/components/ui/spinner';
 import { TrashIcon } from '~/components/ui/icons/trash';
 import { AddPhotoIcon } from '~/components/ui/icons/add-photo';
 import { Card, CardHeader, CardTitle } from '~/components/ui/card';
@@ -19,13 +19,15 @@ type LocalImageValue = {
 
 type ImagesFormProps = {
   value: ImagesValue;
-  onCreate: (image: File) => void;
-  onRemove: (name: string) => void;
+  onCreate: (image: File) => Promise<void>;
+  onRemove: (name: string) => Promise<void>;
 };
 
 const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [localImages, setLocalImages] = useState<LocalImageValue[]>([]);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [localImage, setLocalImage] = useState<LocalImageValue | null>();
 
   const handleUploadLocalImage = (image?: File) => {
     if (!image) {
@@ -33,12 +35,14 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
     }
 
     const src = URL.createObjectURL(image);
-    setLocalImages((prev) => [...prev, { src, alt: image.name }]);
-    onCreate(image);
-  };
 
-  const handleRemoveLocalImage = (src: string) => {
-    setLocalImages(localImages?.filter((image) => image.src !== src));
+    setLoading(true);
+    setLocalImage({ src, alt: image.name });
+
+    onCreate(image).finally(() => {
+      setLocalImage(null);
+      setLoading(false);
+    });
   };
 
   return (
@@ -48,6 +52,7 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
         <Button
           size='flat'
           variant='outline'
+          disabled={loading}
           onClick={() => fileInputRef.current?.click()}
         >
           <AddPhotoIcon />
@@ -63,18 +68,12 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
       </CardHeader>
       <Carousel>
         <CarouselContent className={css.container}>
-          {localImages.map((image, index) => (
-            <RemovableImage
-              key={index}
-              onRemove={() => handleRemoveLocalImage(image.src)}
-              image={{ src: image.src, alt: image.alt ?? '' }}
-            />
-          ))}
+          {localImage ? <UploadingImage image={localImage} /> : null}
           {value.map((image, index) => (
             <RemovableImage
               key={index}
-              onRemove={() => onRemove(image.name)}
               image={{ src: image.thumbpath, alt: image.name }}
+              onRemove={() => onRemove(image.name)}
             />
           ))}
         </CarouselContent>
@@ -82,6 +81,22 @@ const ImagesForm = ({ value, onCreate, onRemove }: ImagesFormProps) => {
     </Card>
   );
 };
+
+const UploadingImage = ({ image }: { image: LocalImageValue }) => (
+  <CarouselItem className={css.imageWrapper}>
+    <Image
+      width={288}
+      height={216}
+      src={image.src}
+      className={css.image}
+      alt={image.alt ?? ''}
+    />
+
+    <div className={css.spinner}>
+      <Spinner />
+    </div>
+  </CarouselItem>
+);
 
 const RemovableImage = ({ image, onRemove }: { image: LocalImageValue; onRemove: () => void }) => (
   <CarouselItem className={css.imageWrapper}>
@@ -113,6 +128,7 @@ const css = {
   ].join(' '),
   removeButton: 'absolute top-2 right-2 w-7 h-7 p-1.5 rounded-sm [&_svg]:size-4 backdrop-blur-lg',
   trashIcon: 'text-[currentColor]',
+  spinner: 'absolute inset-0 bg-card/70 flex items-center justify-center',
 };
 
 export { ImagesForm };
