@@ -1,8 +1,8 @@
 import type { Photo } from './photo';
 
 type CompanyStatus = 'active' | 'inactive';
-type CompanyBusinessEntity = 'Sole Proprietorship' | 'Partnership' | 'Limited Liability Company';
 type CompanyType = 'funeral_home' | 'logistics_services' | 'burial_care_contractor';
+type CompanyBusinessEntity = 'Sole Proprietorship' | 'Partnership' | 'Limited Liability Company' | (string & {});
 
 type CompanyContract = {
   no: string;

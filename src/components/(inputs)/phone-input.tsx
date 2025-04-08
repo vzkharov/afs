@@ -34,32 +34,38 @@ const PhoneInput = ({ className, onChange, onValidChange, defaultValue, ...props
 
     const digitsOnly = newValue.replace(/\D/g, '');
 
-    if (digitsOnly.length <= 11) {
-      const formatted = formatPhone(digitsOnly);
-      setValue(formatted || newValue);
-
-      const valid = isValidPhone(digitsOnly);
-      setIsValid(valid);
-
-      onChange?.(digitsOnly);
-      onValidChange?.(valid);
+    if (digitsOnly.length > 11) {
+      return;
     }
+
+    const formatted = formatPhone(digitsOnly);
+    setValue(formatted || newValue);
+
+    const valid = isValidPhone(digitsOnly);
+    setIsValid(valid);
+
+    onChange?.(digitsOnly);
+    onValidChange?.(valid);
   };
 
   const handleBlur = () => {
-    if (value) {
-      const digitsOnly = value.replace(/\D/g, '');
-      const formatted = formatPhone(digitsOnly);
-
-      if (formatted) {
-        setValue(formatted);
-        const valid = isValidPhone(digitsOnly);
-        setIsValid(valid);
-
-        onChange?.(digitsOnly);
-        onValidChange?.(valid);
-      }
+    if (!value) {
+      return;
     }
+
+    const digitsOnly = value.replace(/\D/g, '');
+    const formatted = formatPhone(digitsOnly);
+
+    if (!formatted) {
+      return;
+    }
+
+    setValue(formatted);
+    const valid = isValidPhone(digitsOnly);
+    setIsValid(valid);
+
+    onChange?.(digitsOnly);
+    onValidChange?.(valid);
   };
 
   return (
@@ -70,7 +76,7 @@ const PhoneInput = ({ className, onChange, onValidChange, defaultValue, ...props
       aria-invalid={!isValid}
       onChange={handleChange}
       placeholder='+1 333 333 4444'
-      className={cn(!isValid && value ? 'border-red-500/50' : '', className)}
+      className={cn(!isValid && value ? 'border-red-500/50 ring-1 ring-red-500/50' : '', className)}
       {...props}
     />
   );

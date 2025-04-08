@@ -14,7 +14,7 @@ type BusinessEntitySelectProps = StyleProps & {
 const BusinessEntitySelect = ({ value, onValueChange, style, className }: BusinessEntitySelectProps) => (
   <Select
     defaultValue={value}
-    onValueChange={(value) => onValueChange?.(value as CompanyBusinessEntity)}
+    onValueChange={(value) => onValueChange?.(value)}
   >
     <SelectTrigger
       style={style}
